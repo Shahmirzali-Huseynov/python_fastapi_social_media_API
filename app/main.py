@@ -1,11 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import FastAPI, File, UploadFile
+
 from . import models
 from .database import engine
 from .routers import post, user, auth, vote
 from .config import settings
-import predic
 
 print(settings.database_username)
 
@@ -33,11 +32,3 @@ app.include_router(vote.router)
 def root():
     return {"message": "Hello World"}
 
-
-@app.post("/result")
-def predict(file: UploadFile = File(...)):
-
-    # new_post = models.Post(**post.dict())
-    post =  predic.predictFuntion(image_url = file)
-
-    return {"Predict result": post}
